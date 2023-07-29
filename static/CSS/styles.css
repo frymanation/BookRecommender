@@ -1,0 +1,416 @@
+
+body {
+  font-family: Tahoma;
+  background-color:lightgrey;
+
+}
+
+.topnav {
+  overflow: hidden;
+
+}
+
+.topnav a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.topnav a:hover, .dropdown:hover .dropbtn {
+  background-color: orange;
+  color: white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  background-color: white;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+
+}
+
+/* Add a black background color to the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: steelblue;
+
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: royalblue;
+  font-size: 140%;
+  text-emphasis: royalblue;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav input[type=text] {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+
+  .dropbtn {
+      background-color: black;
+      color: black;
+  }
+
+  .dropdown-content{
+      color: black;
+      background-color: orange;
+  }
+
+  .dropdown-content a{
+      color: black;
+      background-color: orange;
+  }
+
+  .dropdown-content a:hover {background-color: mediumpurple;}
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+      background-color: mediumpurple;
+
+  }
+
+  .dropdown:hover .dropbtn {
+      background-color: mediumpurple;
+
+  }
+
+  .nav-item>a.hover {
+      color: mediumpurple;
+  }
+ .nav-link {
+    color: green;
+        }
+  .nav-item>a:hover {
+    color: green;
+  }
+
+        /*code to change background color*/
+  .navbar-nav>.active>a {
+    background-color: mediumpurple;
+    color: green;
+  }
+
+
+#myInput {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#books {
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 18px; /* Increase font-size */
+}
+
+#books th, #books td {
+  text-align: left; /* Left-align text */
+  padding: 12px; /* Add padding */
+}
+
+#books tr {
+  /* Add a bottom border to all table rows */
+  border-bottom: 1px solid #ddd;
+
+}
+
+#books tr.header {
+  /* Add a grey background color to the table header and on hover */
+  background-color: #f1f1f1;
+}
+ #books tr:hover {
+   background-color: yellow;
+ }
+ *, html {
+	font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+}
+
+/* Base Page */
+
+.top {
+	margin-bottom: 1em;
+}
+
+
+#loading {
+	max-width: 100px;
+	max-height: 100px;
+}
+.container {
+	text-align: center;
+	max-width: 600px;
+	color: #333;
+	flex-direction: column;
+
+}
+.container_note {
+	text-align: center;
+	max-width: 400px;
+	color: #333;
+	flex-direction: column;
+	margin-top: 1.5em;
+}
+
+.container_
+
+button {
+    padding: 0.5em 1em;
+    background: steelblue;
+    font-weight: bold;
+    border: 0;
+    color: #333;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+/* Sign-in and Register Page */
+
+.container_signin {
+	padding: 2em 2em 3em 2em;
+	border: 4px solid #bbb;
+}
+
+.container_signin {
+}
+
+h5 {
+	margin: 0.2em 0;
+}
+
+.form-group {
+	margin: 1.5em 0;
+}
+
+
+
+.message {
+	font-size: 12px;
+	font-weight: 600;
+	max-width: 300px;
+    background: #fff;
+	padding: 1em;
+	border: 2px solid lightsteelblue;
+	color: lightsteelblue;
+}
+
+input {
+	padding: 0.5em;
+	border: 2px solid #ddd;
+    min-width: 80%;
+}
+
+.container_forgot {
+	text-align: left;
+    margin-top: 1em;
+    font-size: 0.85em;
+}
+
+.container_toregister {
+	margin-bottom: 1.5em;
+    color: #333;
+    font-weight: 600;
+    border: 1px solid lightseagreen;
+    padding: 0.5em;
+}
+
+/* Search Page */
+
+.welcome {
+	max-width: 400px;
+	text-align: center;
+	font-weight: 600;
+}
+
+.search_legend {
+	font-weight: 600;
+	font-size: 0.65em;
+}
+
+.search_form {
+	margin-top: 2em;
+}
+
+.search_field {
+	border: 3px solid;
+}
+
+.sign_out {
+	margin-bottom: 6em;
+}
+
+.title_label {
+	font-size: 0.75em;
+    font-weight: 700;
+    color: #555;
+}
+
+.author_label {
+	font-size: 0.75em;
+	font-weight: 700;
+    color: #000000;
+}
+
+/* Sign Out */
+
+.button_container {
+	display: flex;
+    flex-direction: row;
+    margin: 2em auto;
+    justify-content: center
+}
+
+.button_container input {
+	margin-right: 1.5em;
+}
+
+.btn_no {
+	background: white;
+	font-weight: 700;
+	border: 2px solid;
+	color: #fff;
+}
+
+.btn_no:hover {
+	cursor: pointer;
+}
+
+div#loading {
+    width: 35px;
+    height: 35px;
+    display: none;
+    cursor: wait;
+}
+
+#fullcontainer {
+	margin: 1em;
+}
+
+#welcomecard {
+	margin: 1em;
+	border: none !important;
+}
+
+}
+
+.book_table_headers {
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+
+#container-rated-profile {
+	width: 25px;
+}
+
+.card-body {
+    background-color: yellow;
+  height: 200px;
+  width: 200px;
+}
+
+.member_container {
+    width: 65%;
+
+}
