@@ -7,6 +7,7 @@ import urllib.request as urllib2
 from datetime import *
 from json import JSONEncoder
 from urllib.parse import quote
+from flask.cli import load_dotenv
 
 import pandas as pd
 # import xmltodict
@@ -27,7 +28,7 @@ from forms import LoginForm, SignUpForm, BookIDSearchForm
 from te import get_recommendations
 
 load_dotenv()
-data_path = '/Users/jon/Code_Repo/BookRecommender'
+data_path = '/Users/jon/Code_Repo/BookRecommender/'
 
 app = Flask(__name__)
 # model = pickle.load(open('my_df.pickle','rb'))
@@ -49,19 +50,19 @@ with open(data_path + "save_books.pkl", 'rb') as infile:
 CORS(app)
 ENV = 'prod'
 
-LOCAL_DB_URL = os.getenv("sqlite:///new_db.db")
+LOCAL_DB_URL = os.getenv("sqlite://///Users/jon/Code_Repo/BookRecommender/new_db.db")
 REMOTE_DB_URL = os.getenv("REMOTE_DB_URL")
 SECRET_KEY = os.getenv("D3tR01Tl10n$")
 
 # Setting database configs
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///new_db.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://///Users/jon/Code_Repo/BookRecommender/new_db.db"
 else:
     app.debug = False
 
     app.config['SECRET_KEY'] = "D3tR01Tl10n$"
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///new_db.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://///Users/jon/Code_Repo/BookRecommender/new_db.db"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -80,7 +81,7 @@ def load_books():
     global books, titles
     if books is None or titles is None:
         titles = []
-        books = pd.read_csv('/Users/jonathonfryman/PycharmProjects/CAPSTONE_v8.1/static/data/books.csv')
+        books = pd.read_csv('/Users/jon/Code_Repo/BookRecommender/static/data/books.csv')
         for index, row in books.iterrows():
             titles.append(row['title'])
         titles.sort()
@@ -93,7 +94,7 @@ def load_title_mappers():
     if bookid_to_title is None or title_to_bookid is None:
         bookid_to_title = {}
         title_to_bookid = {}
-        filename = '/Users/jonathonfryman/PycharmProjects/CAPSTONE_v8.1/static/data/books.csv'
+        filename = '/Users/jon/Code_Repo/BookRecommender/static/data/books.csv'
         with open(filename, "r", encoding='utf8') as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
@@ -111,7 +112,7 @@ def load_id_mapper():
     global mapper_id
     if mapper_id is None:
         mapper_id = {}
-        filename = '/Users/jonathonfryman/PycharmProjects/CAPSTONE_v8.1/static/data/books.csv'
+        filename = '/Users/jon/Code_Repo/BookRecommender/static/data/books.csv'
         with open(filename, "r", encoding='utf8') as f:
             reader = csv.reader(f, delimiter=",")
             for i, line in enumerate(reader):
