@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block head %}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">g=stopcache33" />
+        <title>Book Details</title>
+{% endblock %}
+
+{% block content %}
+    <style>
+
+    .book_description_info {
+        background-color: steelblue;
+        color: white;
+    }
+    .rating_selection {
+        background-color: steelblue;
+        color: white;
+    }
+
+    .book_info_main {
+
+    }
+    .primary_book_div {
+        background-color: steelblue;
+    width: 95%;
+    background-image: linear-gradient(#4682b4, #8693a9);
+
+    border-width: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+    color: white;
+
+    }
+
+    .bottom_book_details {
+        background-color: darkgrey;
+        color: white;
+    }
+    </style>
+
+    <div class="primary_book_div">
+<div style="background-color: steelblue"><center>{{ book.title }} </center></div>
+     <div style="background-color: darkgrey; color: white; float: left">
+         {% if book.image_url %}
+                    <img id="imgDetails" src="{{ book.image_url }}" title="{{ book.title }}"
+                 alt="{{ book.title }}"/>
+                {% else %}
+                    <img src="../static/default-book-cover.jpg" title="{{ book.title }}"
+                 alt="{{ book.title }}"/>
+                {% endif %}
+
+     {% if book.id %}
+                <form class="rating_form" action="/new-rating" method="POST">
+                    <select id="isbn10" class="isbn10" name="isbn10" type="hidden">
+                        <option value="{{book.isbn}}">{{book.isbn}}</option>
+                    </select>
+                    <select id="bookid" class="bookid" name="bookid" type="hidden">
+                        <option value="{{book.id}}">{{book.id}}</option>
+                    </select>
+                    <div>
+                        Please rate the book
+                        <table class="table table-bordered table-striped" style="width: 50px">
+                                <thead>
+                                <tr style="background-color: steelblue; color: white">
+                                    <th scope="col">1</th>
+                                    <th scope="col">2</th>
+                                    <th scope="col">3</th>
+                                    <th scope="col">4</th>
+                                    <th scope="col">5</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td ><input type="radio" name="rating" value=1 /></td>
+                                    <td class="rating_selection" ><input type="radio" name="rating" value=2 /></td>
+                                    <td class="rating_selection"><input type="radio" name="rating" value=3 /></td>
+                                    <td class="rating_selection" ><input type="radio" name="rating" value=4 /></td>
+                                    <td class="rating_selection" ><input type="radio" name="rating" value=5 /></td>
+                                </tr>
+                                 </tbody>
+                            </table>
+                                <input type="submit" value="Submit rating" class="btn btn-smal btn-info" style="background-color: steelblue" />
+                    </div></form>
+            {% else %}
+                <h5>Sorry, this book does not have available ISBN numbers and therefore cannot be rated.</h5>
+            {% endif %}
+        <div>
+                <ul>{{book.description | safe}}</ul>
+                <ul><strong>Author:</strong>{{ book.authors.author.name }}</ul>
+                <ul><strong>Published:</strong> {{ book.publication_year }}</ul>
+                <ul><strong>Book ID:</strong> {{ book.id }}</ul>
+                <ul><strong>ISBN:</strong> {{ book.isbn }}</ul>
+
+            </div>
+            <a href = "/search"><button class="btn btn-secondary" type="submit" style="background-color: white; color: steelblue">Back to search</button></a>
+         <a href={{ url_for( 'get_recs', title=book.title)}}><button class="btn btn-secondary" type="submit" style="background-color: white; color: steelblue">View Recommended Titles based on interest in {{ book.title }}</button></a>
+ <div style="float: right; color: steelblue; ">
+
+
+
+
+
+  </div>
+
+     </div>
+
+    </div>
+
+<div style="float:left; color: steelblue;">
+            <div style="float: left; width: 50%; padding-top: 10px">
+
+            </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+          $("#loading").hide();
+          $("#loading-message").hide();
+          $("#isbn10").hide();
+          $("#bookid").hide();
+          function loading(){
+              $("#loading").show();
+              $("#loading-message").show();
+              $("#bookcard").hide();
+          }
+      </script>
+
+
+{% endblock %}

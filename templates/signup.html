@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p><center>{{msg}}</center></p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<div class="container" style="width: 450px; font-size: 10pt">
+    <form class="form-signin" method="POST" action="/signup">
+        <h3 class="form-signin-heading" style="font-size: 13pt"><center>Become a Member of the Generic County Library!</center></h3>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.username) }}
+        {{ wtf.form_field(form.first_name) }}
+        {{ wtf.form_field(form.last_name) }}
+        {{ wtf.form_field(form.email) }}
+        {{ wtf.form_field(form.password) }}
+        <button class="btn btn-lrg btn-primary btn-block" type="submit" style="background-color: steelblue">Sign Up</button>
+    </form>
+</div>
+
+{% endblock %}

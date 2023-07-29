@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <style>
+    .container-location {
+        background-color: steelblue;
+        background-image: linear-gradient(#4682b4, #8693a9);
+        border-radius: 8px;
+        border-width: 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+        color: white;
+        font-size: 16pt;
+        padding: 5px;
+    }
+    </style>
+
+    <div class="container">
+    <div class="container-location" id="locationheader">
+        <h4 style="font-family: Tahoma"><center><strong> Generic County, Ohio Library Branch Locations</strong></center></h4>
+        <br>
+
+        <center>The Generic County Public Library system consists of three local branches that are unique to the communities they reside.</center>
+
+        <center><label style="font-size: 16pt"> <u>The following are the three branches comprising the Generic County Public Library system:</u></label><br>
+        <label style="font-size: 16pt"><b>Buckeye City</b>
+        <br><b>Buckeyeville</b>
+        <br><b>Buckeye Center</b>
+        </center></label>
+       <center> Please review the links found on the navigation bar along the top of the page to further explore what the library has to offer!</center>
+    </div>
+    </div>
+
+{% endblock %}

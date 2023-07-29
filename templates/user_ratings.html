@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{%  block head %}
+{% endblock %}
+
+{% block content %}
+    <style>
+    .main_user_rating {
+        margin: auto;
+        width: 90%;
+        border: 2px black;
+        padding: 5px;
+        text-align: center;
+        background-color: steelblue;
+
+    }
+
+    .table_headers {
+        background-color: steelblue;
+        color: white;
+        margin: auto;
+        border: 2px black;
+        text-align: center;
+        font-size: 14pt;
+
+    }
+    .ratingTable {
+        font-size: 16pt;
+        width: 99.5%;
+        background-color: lightgray;
+        color: black;
+        linear-gradient(#4682b4, #8693a9);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+
+}
+
+
+    </style>
+
+    <div class="main_user_rating" >
+    <label class="profile_header" id="profheader" style="align-self: center; color: white"><h3 style="align-self: center;"> Thank you or being a valued member of the Generic County Public Library Family, <strong>{{  current_user.first_name }}. </strong> </h3></label>
+        <table id="RatingsTable" class="table table-striped sort_button small" >
+            <tr class="table_headers_row">
+                <th class="table_headers">Book Cover
+                    <br>(Click book cover for more information)</th>
+                <th class="table_headers">Title</th>
+                <th class="table_headers">User Rating</th>
+            </tr>
+
+           <tbody class="ratingTable" id="ratingTable">
+            {%  for rate in rating['work'] %}
+                <tr>
+                      <tr>
+                        <td>
+                              <a href="{{ url_for('book_details', book_id=rate.id) }}">
+                                  <div>
+                                   <img src="{{ rate.image_url }}">
+                                  </div>
+                              </a>
+                          </td>
+                        <input type="hidden" name="book_id" value="{{ rate.id}}" />
+
+                        <td style="font-size: 16pt; color: black;"><strong>{{ rate.book_title }}</strong></td>
+                        <input type="hidden" name="book_title" value="{{ rate.book_title }}" />
+                        {%  if rate.rating >= 3 %}
+                            <td style="border-right-color: black; border-width: 3px; color: green"><strong><center> {{ rate.rating }} </center></strong></td>
+                        {% elif rate.rating >= 2 and rate.rating < 3 %}
+                            <td style="border-right-color: black; border-width: 3px; color: yellow"><strong><center> {{ rate.rating }} </center></strong></td>
+                        {%  else %}
+                            <td style="border-right-color: black; border-width: 3px; color: red"><strong><center> {{ rate.rating }} </center></strong></td>
+                        {%  endif %}
+                        <input type="hidden" name="rating" value="{{ rate.rating }}" />
+
+
+
+                      </tr>
+
+            {% else %}
+              <div class="container">
+              <h2> User has not rated any books. Please rate titles in the GCOPL database.</h2>
+              </div>
+                  {%  endfor %}
+           </tbody>
+                      </table>
+                  </div>
+{%  endblock %}

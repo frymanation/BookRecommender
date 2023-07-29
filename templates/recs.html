@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{%  block head %}
+{% endblock %}
+
+{% block content %}
+
+    <h2><center> Recommendations based on interest in  {{ title }}:</center></h2><br>
+
+    <div class="container" >
+        <table id="RecsTable" class="table table-striped sort_button small" >
+            <tr >
+                <th>Book Cover</th>
+                <th>Title</th>
+
+            </tr>
+
+           <tbody id="recTable">
+            {%  for book in recs["work"] %}
+                <tr>
+                <td>
+                            <a href="{{ url_for('book_details', book_id=book.id) }}">
+                                <div style="height:100%;width:100%">
+                                   <center> <img src="{{ book.image_url}}"></center>
+                                </div>
+                            </a>
+                        </td>
+                <input type="hidden" name="book_id" value="{{ book.id}}" />
+
+                    <td>{{ book.book_title }}</td>
+                    <input type="hidden" name="book_title" value="{{ book.book_title}}" />
+                </tr>
+
+            {% else %}
+              <div class="container">
+              <h2> Title has no valid recs.</h2>
+              </div>
+                  {%  endfor %}
+           </tbody>
+                      </table>
+                  </div>
+{%  endblock %}

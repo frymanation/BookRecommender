@@ -1,0 +1,202 @@
+{% extends base.html %}
+
+{% block content %}
+  <a href="/"><div class="icon icon-fill"><i class="fa fa-home"></i></div></a>
+  <div class="fullscreen">
+
+    <header>
+
+    <h1 class="Underline"><a href="/">The <span>Recommender</a></h1>
+
+     <h3> Showing Results for: {{search_name}}</h3>
+
+    </header>
+
+
+    <div class="container" >
+      <div class="card card_1" id="image1">
+        <div class="date">
+          {{ movie_date[0] }}
+          <span class="tv_ico"><img src="http://www.cartaodental.com/nbase/image/pc.svg"></span>
+        </div>
+        <div class="content">
+          <div class="title">
+            {{ book_names[0]}}
+          </div>
+          <div class="text">
+
+          </div>
+        </div>
+        <div class="sinopse">
+
+
+          <iframe id="ytplayer" type="text/html"  frameborder="0" autoplay allowfullscreen></iframe>
+          <div class="content-sinopse">
+            <div class="title">Series Synopsis</div>
+            <div class="text">{{ book_description[0] }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card card_2" id="image2">
+        <div class="date">
+          {{ book_date[1] }}
+        </div>
+        <div class="content">
+          <div class="title">
+            {{ book_names[1]}}
+          </div>
+          <div class="text">
+
+          </div>
+        </div>
+        <div class="sinopse">
+
+
+          <iframe id="ytplayer1" class="player2" type="text/html"  frameborder="0" autoplay allowfullscreen></iframe>
+          <div class="content-sinopse">
+            <div class="title">Series Synopsis</div>
+            <div class="text">{{ book_overview[1] }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card card_3" id="image3">
+        <div class="date">
+          {{ book_date[2] }}
+        </div>
+        <div class="content">
+          <div class="title">
+            {{ book_names[2]}}
+          </div>
+          <div class="text">
+
+          </div>
+        </div>
+        <div class="sinopse">
+          <iframe id="ytplayer2" class="player2" type="text/html"  frameborder="0" autoplay allowfullscreen></iframe>
+
+
+          <div class="content-sinopse">
+            <div class="title">Series Synopsis</div>
+            <div class="text">{{ book_overview[2] }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <footer>
+        <p>Designed by <a class="footer" href="http://www.suryasingh.me/">Surya Singh</a></p>
+      </footer>
+
+<!-- partial -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[0]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+
+    .then((response) => response.json())
+    .then((data) => {
+    const value = data.poster_path;
+    //Apply HTML src
+
+     var urlString = "url('https://image.tmdb.org/t/p/original" + value + " ')";
+     document.getElementById('image1').style.backgroundImage = urlString;
+	 document.getElementById('image1').style.backgroundRepeat = "no-repeat";
+	  document.getElementById('image1').style.backgroundSize = "cover";
+});
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[1]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+    .then((response) => response.json())
+    .then((data) => {
+    const value = data.poster_path;
+    //Apply HTML src
+
+     var urlString = "url('https://image.tmdb.org/t/p/original" + value + " ')";
+     document.getElementById('image2').style.backgroundImage = urlString;
+	 document.getElementById('image2').style.backgroundRepeat = "no-repeat";
+	  document.getElementById('image2').style.backgroundSize = "cover";
+});
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[2]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+    .then((response) => response.json())
+    .then((data) => {
+    const value = data.poster_path;
+    //Apply HTML src
+
+     var urlString = "url('https://image.tmdb.org/t/p/original" + value + " ')";
+     document.getElementById('image3').style.backgroundImage = urlString;
+	 document.getElementById('image3').style.backgroundRepeat = "no-repeat";
+	  document.getElementById('image3').style.backgroundSize = "cover";
+});
+
+</script>
+
+<script>
+$(".card").hover(function() {
+  var vSrc =  $(this).find('iframe').data('video');
+  var video = $(this).find('iframe');
+  video.attr('src',vSrc);
+  setTimeout(function(){ player.unMute(); }, 1000);
+},
+function() {
+  $(this).find('iframe').attr('src','');
+});
+
+$('.view').click(function(){
+  var el = $(this);
+
+  if(el.hasClass('series_lacasa') == true){
+    $('.episodes .episode').each(function(){
+      var toShow = $(this).data('lacasa');
+      $(this).css('background','url('+toShow+') no-repeat center/cover');
+    });
+  } else if (el.hasClass('series_got') == true) {
+    $('.episodes .episode').each(function(){
+      var toShow = $(this).data('got');
+      $(this).css('background','url('+toShow+') no-repeat center/cover');
+    });
+  }  else if (el.hasClass('series_vikings') == true) {
+    $('.episodes .episode').each(function(){
+      var toShow = $(this).data('vikings');
+      $(this).css('background','url('+toShow+') no-repeat center/cover');
+    });
+  }
+
+  $('.fullserie').addClass('active');
+});
+
+$('.fullserie .close').click(function(){
+  $('.fullserie').removeClass('active');
+});
+</script>
+<script>
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[0]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+.then((response) => response.json())
+.then((data) => {
+const value = data.results[0].key
+//Apply HTML src
+document.getElementById("ytplayer").src = 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1'
+//Set Data-Attribute
+document.getElementById("ytplayer").setAttribute('data-video', 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1')
+});
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[1]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+.then((response) => response.json())
+.then((data) => {
+const value = data.results[0].key
+//Apply HTML src
+document.getElementById("ytplayer1").src = 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1'
+//Set Data-Attribute
+document.getElementById("ytplayer1").setAttribute('data-video', 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1')
+});
+fetch('https://www.goodreads.com/book/show?id=' + {{bookid[2]}} + '&key=Ev590L5ibeayXEVKycXbAw'")
+.then((response) => response.json())
+.then((data) => {
+const value = data.results[0].key
+//Apply HTML src
+document.getElementById("ytplayer2").src = 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1'
+//Set Data-Attribute
+document.getElementById("ytplayer2").setAttribute('data-video', 'https://www.youtube.com/embed/'+value+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1')
+});
+
+</script>
+      {% endblock %}

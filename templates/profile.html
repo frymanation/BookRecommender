@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/CSS/book-grid.css" />
+    <title>Profile</title>
+
+
+
+{% endblock %}
+
+
+{% block content %}
+    <style>
+
+    .profile_main {
+    background-color: steelblue;
+    width: 95%;
+    background-image: linear-gradient(#4682b4, #8693a9);
+    border-radius: 8px;
+    border-width: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+    color: white;
+    font-size: 16pt;
+    padding: 5px;
+}
+
+   .profile_button {}
+
+/* CSS */
+.button-84 {
+  align-items: center;
+  background-color: steelblue;
+  background-image: linear-gradient(#4682b4, #8693a9);
+  border-radius: 8px;
+  border-width: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 18px;
+  height: 52px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 32px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all 150ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.button-84:hover {
+  box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
+  opacity: .85;
+}
+
+.button-84:active {
+  outline: 0;
+}
+
+.button-84:focus {
+  box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
+}
+
+@media (max-width: 420px) {
+  .button-84 {
+    height: 48px;
+  }
+}
+
+.profile_table {
+    width: 99.5%;
+    background-color: lightgray;
+    color: black;
+    linear-gradient(#4682b4, #8693a9);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+
+}
+    </style>
+
+      <center><div class="profile_main" id="header-card">
+      <br>
+          <label class="profile_header" id="profheader" style="align-self: center"><h3 style="align-self: center;"> Thank you for being a valued member of the Generic County Public Library Family, <strong>{{  current_user.first_name }}. </strong> </h3></label>
+
+
+
+      <div class = "container-rated-profile" id="contaround">
+          <div style="background-color: white; color: black;">
+            <h4 style="background-color: white; color: black; text-align: center">Please find your historical rating information listed below, <strong> {{  current_user.first_name }}</strong>:</h4>
+      <center><div style="font-size: 14pt">You can click a <strong>book cover</strong> for additional information on that catalog item or select one of the three options below!</div></center>
+       <center><div class="buttons">
+             <a href="/search"><button class="button-84">GCOPL Catalog Search</button></a>
+            <a href="/books"><button class="button-84" >GCOPL Catalog</button></a>
+            <a href="/user_ratings"><button class="button-84">Ratings History</button></a>
+        </div></center>
+
+          <center><table class="profile_table" id="book">
+                <tr style="border-color: black">
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 150px;" class=" book_table_headers" >Book Cover</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Title</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Authors</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Your Rating</th>
+                </tr>
+                <tbody>
+                {% for book in books['work'] %}
+                    <tr style="border-right-color: black; border-width: 3px">
+                        <td>
+                            <a href="{{ url_for('book_details', book_id=book.id) }}">
+                                <div style="height:95%;width:95%">
+                                   <center> <img src="{{ book.image_url}}"></center>
+                                </div>
+                            </a>
+                        </td>
+
+                        <input type="hidden" name="book_id" value="{{ book.id}}" />
+                        <td style="border-right-color: black; border-width: 3px"> <center> {{ book.title }} </center> </td>
+                        <input type="hidden" name="title" value="{{ book.title }}" />
+                        <td style="border-right-color: black; border-width: 3px; width: 20px"> <center>{{ book.authors.author.name}} </center></td>
+                        <input type="hidden" name="authors.author.name" value="{{ book.authors.author.name }}" />
+                        {%  if book.average_rating >= 3 %}
+                            <td style="border-right-color: black; border-width: 3px; color: green"><strong><center> {{ book.average_rating }} </center></strong></td>
+                        {% elif book.average_rating >= 2 and book.average_rating < 3 %}
+                            <td style="border-right-color: black; border-width: 3px; color: yellow"><strong><center> {{ book.average_rating }} </center></strong></td>
+                        {%  else %}
+                            <td style="border-right-color: black; border-width: 3px; color: red"><strong><center> {{ book.average_rating }} </center></strong></td>
+                        {%  endif %}
+                        <input type="hidden" name="average_rating" value="{{ book.average_rating }}" />
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+              </center>
+          </div>
+      </div>
+      </div></center>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
+        <script>
+            $("#loading").hide();
+            $("#loading-message").hide();
+            function loading(){
+              $("#loading").show();
+              $("#loading-message").show();
+              $("#profheader").hide();
+              $("#button-container").hide();  
+              $("#containheader").hide(); 
+              $("#ratebtn").hide();  
+              $("#recsbtn").hide();    
+              $("#contaround").hide();   
+            }
+          </script>
+{%  endblock %}

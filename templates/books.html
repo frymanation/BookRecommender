@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+
+
+{%  block head %}
+    <title>Book Search</title>
+{%  endblock %}
+
+
+{% block content %}
+
+    <style>
+
+    </style>
+
+    <div class="container" style="background-color: steelblue; color: white; padding-top: 15px; padding-bottom: 20px;linear-gradient(#4682b4, #8693a9);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);">
+
+            <center><label style="padding-right: 20px; padding-left: 20px">Search:<input type="text" id="Search" onkeyup="myTitleSearch()" placeholder="Title search"></label>
+                <button><a href={{ url_for('search') }}> Return to Search</a></button>
+            </center>
+    <center><h5 style="background-color: steelblue; color: white; padding-bottom: 5px"> <strong>Please click individual book covers to view additional information for the selected title.</strong></h5></center>
+
+            <table style="background-color: lightgray; color: black">
+                <tr style="border-color: lightsteelblue">
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 150px;" class=" book_table_headers" >Book Cover</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Title</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Authors</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers" >Average Rating</th>
+                    <th style="background-color: white; color: black; font-size: 14pt; width: 200px;" class=" book_table_headers">Similar Titles</th>
+                </tr>
+                <tbody>
+                {%  for book in books %}
+                    <tr style="border-right-color: black; border-width: 3px">
+                        <td>
+                            <a href="{{ url_for('book_details', book_id=book.goodreads_book_id) }}">
+                                <div style="height:100%;width:100%">
+                                   <center> <img src="{{ book.image_url}}"></center>
+                                </div>
+                            </a>
+                        </td>
+
+                        <input type="hidden" name="book_id" value="{{ book.goodreads_book_id}}" />
+                        <td style="border-right-color: black; border-width: 3px"> <center> {{ book.title }} </center> </td>
+                        <input type="hidden" name="title" value="{{ book.title }}" />
+                        <td style="border-right-color: black; border-width: 3px; width: 20px"> <center>{{ book.authors }} </center></td>
+                        <input type="hidden" name="authors" value="{{ book.authors }}" />
+                        <td style="border-right-color: black; border-width: 3px"><center> {{ book.average_rating }} </center></td>
+                        <input type="hidden" name="average_rating" value="{{ book.average_rating }}" />
+                        <td style="border-right-color: black; border-width: 3px">
+                            <a href={{ url_for( 'get_recs', title=book.title)}}>
+                                <div>
+                                    <center><label>Recs</label></center>
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function myTitleSearch() {
+            // Declare variables
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("Search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("BookTable");
+            tr = table.getElementsByTagName("tr");
+            // Loop through all table rows, and hide those who don't match the        search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $(".use-address").click(function() {
+            var address = [];]
+        }
+        $(this).closest('tr').find('td').not(':first').each(function() {
+            var textval = $(this).text(); // this will be the text of each <td>
+            // address.push(textval);
+            // });
+            // alert(address.join('\n'));
+        // });
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#BookTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+</script>
+{% endblock %}
+
+
+
+
+

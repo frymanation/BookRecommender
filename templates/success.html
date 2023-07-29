@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block head %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/CSS/styles.css?anything=stopcache57" />
+    <title>Please sign out</title>
+{%  endblock %}
+{% block content %}
+
+    <div class="container">
+      <center><h3>Thank you for rating this book. Keep reading and rating to discover new books to love!</h3></center>
+    <div class="button_container">
+     <center><a href={{ url_for('search')}}><button style="background-color: steelblue; color: white; font-size: 14pt; width: 200px" >Return to Search</button></a></center>
+     <center><a href={{ url_for('books')}}><button style="background-color: steelblue; color: white; font-size: 14pt; width: 200px" >Return to All Books</button></a></center>
+     <center><a href={{ url_for('get_profile')}}><button style="background-color: steelblue; color: white; font-size: 14pt; width: 200px" >Return to Member Profile</button></a></center>
+    </div>
+    </div>
+
+ {% endblock %}

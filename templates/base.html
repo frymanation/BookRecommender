@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../static/CSS/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"><meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"><meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css"><meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<style>
+
+    .topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav .search-container {
+        float: none;
+    }
+}
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+
+    margin: 0;
+    padding: 14px;
+    text-align:center;
+    width:150px; /* fixed width */
+    text-decoration:none;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+
+  .nav-item {
+      border-right: 1px solid #bbb;
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+  .nav-item:last-child {
+  border-right: none;
+}
+</style>
+
+<body>
+<div class="topnav" style="background-color: steelblue" >
+ <nav id="main-nav" class="navbar  navbar-expand-md topnav" style="background-color: steelblue">
+
+
+    <div class="collapse navbar-collapse" id="main-nav-dropdown" >
+        <ul id="nav-ul" class="navbar-nav" >
+        <li class="nav-item">
+            <img src="/static/images/ohio.jpg" width="50" height="50" alt="ohio">
+        </li>
+            <li id="nav-li" class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+            </li>
+              <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                <a class="nav-link" href={{ url_for('locations')}}>Branches</a>
+              </li>
+            <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                <a class="nav-link" href={{ url_for('search')}}>Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ url_for('about')}}>About GCOPL</a>
+            </li>
+            {%  if current_user.is_anonymous %}
+              <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                  <a class="nav-link" href={{ url_for('login')}}>Member Sign-in</a>
+              </li>
+              <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                  <a class="nav-link" href={{ url_for('signup')}}>Become a Member</a>
+              </li>
+            {% else %}
+                <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                  <a class="nav-link" href={{ url_for('get_profile')}}>Member Profile</a>
+                </li>
+                <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                  <a class="nav-link" href={{ url_for('user_ratings')}}>Your Ratings</a>
+                </li>
+                <li class="nav-item" style="padding-left: 10px; padding-right: 10px">
+                  <a class="nav-link" href={{ url_for('logout')}}>Sign-Out</a>
+                </li>
+
+            {%  endif %}
+                <li class="nav-item">
+                <form class="search_form" action="{{ url_for('search') }}" method="post">
+                        <input autocomplete="off" autofocus class="form-control" placeholder="Enter the title of the book" id="title"
+                               name="title" type="text" required style="width: 250px"/>
+                        <button style="width: 250px" type="submit"><i class="fa fa-search"></i>Search</button>
+                </form>
+                </li>
+        <li class="nav-item">
+            <img src="/static/images/ohioflag.jpg" style="padding-left: 20px" height="50">
+        </li>
+        </ul>
+    </div>
+</nav>
+</div>
+<br>
+{% block content %}{% endblock %}
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+
+<!-- Footer -->
+<br>
+
+
+<!-- Required Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+<footer>
+
+</footer>
+
+</html>
